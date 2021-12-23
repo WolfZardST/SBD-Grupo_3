@@ -2,6 +2,7 @@
 
 -- PARA WORKBENCH: CREATE SCHEMA APOYAME;
 -- PARA WORKBENCH: USE APOYAME;
+PRAGMA foreign_keys = ON;
 
 CREATE TABLE USUARIO(
 NICKNAME VARCHAR(50) NOT NULL,
@@ -71,23 +72,26 @@ SELECT * FROM GRUPO;
 CREATE TABLE ENTRADA (
 AUTOR VARCHAR(50) NOT NULL,
 FECHA VARCHAR(30) NOT NULL,
-TEMA VARCHAR(150) NOT NULL,
+NOMBRE_TEMA VARCHAR(50) NOT NULL,
+F_CREACION_TEMA VARCHAR(50) NOT NULL,
+CREADOR_TEMA VARCHAR(50) NOT NULL,
 TEXTO TEXT NOT NULL,
-PRIMARY KEY(AUTOR, FECHA, TEMA),
-FOREIGN KEY(TEMA) REFERENCES TEMA(NOMBRE),
+PRIMARY KEY(AUTOR, FECHA, NOMBRE_TEMA, F_CREACION_TEMA, CREADOR_TEMA),
+FOREIGN KEY(NOMBRE_TEMA, F_CREACION_TEMA, CREADOR_TEMA) REFERENCES TEMA(NOMBRE, F_CREACION, NICKNAME_CREADOR),
 FOREIGN KEY(AUTOR) REFERENCES USUARIO(NICKNAME)
 );
 
 --R1
-INSERT INTO ENTRADA VALUES("WolfZard", "2021-12-06", "Tema 1", "Creo que sí deberías hacerlo.");
+
+INSERT INTO ENTRADA VALUES("WolfZard", "2021-12-06", "Tema 1", "2021-05-31","HugoX", "Creo que sí deberías hacerlo.");
 --R2
-INSERT INTO ENTRADA VALUES("JGorGG", "2021-10-06", "Tema 2", "Yo tambien creo lo mismo :)");
+INSERT INTO ENTRADA VALUES("JGorGG", "2021-10-06", "Tema 2", "2019-06-21","JGorGG", "Yo tambien creo lo mismo :)");
 --R3
-INSERT INTO ENTRADA VALUES("Samsville", "2021-06-09", "Tema 3", "¿Y porque no hiciste eso antes de que empeorara el problema?");
+INSERT INTO ENTRADA VALUES("Samsville", "2021-06-09", "Tema 3", "2021-07-01","Samsville", "¿Y porque no hiciste eso antes de que empeorara el problema?");
 --R4
-INSERT INTO ENTRADA VALUES("HugoX", "2021-08-13", "Tema 4", "Creeria que ya eata bien asi nomas");
+INSERT INTO ENTRADA VALUES("HugoX", "2021-08-13", "Tema 4", "2020-08-10","WolfZard", "Creeria que ya eata bien asi nomas");
 --R5
-INSERT INTO ENTRADA VALUES("HugoX", "2019-04-01", "Tema 5", "Deberías tomarlo con más calma.");
+INSERT INTO ENTRADA VALUES("HugoX", "2019-04-01", "Tema 5", "2021-09-15","MariYas", "Deberías tomarlo con más calma.");
 
 SELECT * FROM ENTRADA;
 .print "\n"
